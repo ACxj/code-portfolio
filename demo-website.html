@@ -25,7 +25,7 @@
 
   header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20}
   nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .logo{font-weight:800;font-size:18px}
+  .logo{font-weight:600;font-size:18px}
   .logo span{color:var(--accent)}
   .nav-links{display:flex;gap:22px;font-size:15px}
   .nav-links a{color:var(--muted)}
@@ -48,7 +48,8 @@
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   @media(max-width:860px){.grid{grid-template-columns:1fr}}
   .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px}
-  .card .ico{font-size:26px;margin-bottom:12px}
+  .card .ico{margin-bottom:12px;color:var(--muted)}
+  .card .ico svg{width:24px;height:24px;stroke-width:1.5}
   .card h3{font-size:17px;margin-bottom:8px}
   .card p{color:var(--muted);font-size:14.5px}
 
@@ -104,9 +105,9 @@
     <h2>我们的服务</h2>
     <p class="sub">以下为模板占位内容，正式项目按真实业务替换。</p>
     <div class="grid">
-      <div class="card"><div class="ico">🛠️</div><h3>服务一</h3><p>一句话说明这项服务做什么、适合什么客户。</p></div>
-      <div class="card"><div class="ico">📦</div><h3>服务二</h3><p>一句话说明这项服务的内容与交付形式。</p></div>
-      <div class="card"><div class="ico">🤝</div><h3>服务三</h3><p>一句话说明这项服务能帮客户解决的问题。</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3>服务一</h3><p>一句话说明这项服务做什么、适合什么客户。</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4"/><path d="M12 11v10"/></svg></div><h3>服务二</h3><p>一句话说明这项服务的内容与交付形式。</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 5.5a3.5 3.5 0 0 1 0 6.5"/></svg></div><h3>服务三</h3><p>一句话说明这项服务能帮客户解决的问题。</p></div>
     </div>
   </div>
 </section>
