@@ -8,7 +8,8 @@
 
 ## 在线预览
 
-- 在线地址：【部署后填写 Gitee Pages / 独立站链接】
+- 在线地址：https://acxj.github.io/code-portfolio/demo-booking.html
+- 作品集门面站：https://acxj.github.io/code-portfolio/
 - 本地入口：`demo-booking.html`
 - 截图：
   - 预约首页（选服务 / 时段 / 表单）：![预约首页](assets/booking-home.png)

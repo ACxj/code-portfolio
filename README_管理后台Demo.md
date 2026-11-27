@@ -8,7 +8,8 @@
 
 ## 在线预览
 
-- 在线地址：【部署后填写 Gitee Pages / 独立站链接】
+- 在线地址：https://acxj.github.io/code-portfolio/demo-admin.html
+- 作品集门面站：https://acxj.github.io/code-portfolio/
 - 本地入口：`demo-admin.html`
 - 截图：
   - 后台首页（统计卡 + 列表）：![后台列表](assets/admin-list.png)
