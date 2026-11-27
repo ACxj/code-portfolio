@@ -99,16 +99,15 @@
 
   /* ===== 联系 ===== */
   .contact-box{max-width:600px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:0 10px 30px rgba(22,35,58,.08)}
-  .contact form{display:grid;gap:16px}
-  .contact label{font-size:14px;color:var(--muted)}
-  .contact input,.contact textarea{
-    width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;
-    padding:13px 15px;color:var(--text);font-size:15px;font-family:inherit;transition:border-color .15s;
-  }
-  .contact input:focus,.contact textarea:focus{outline:none;border-color:var(--accent)}
-  .contact textarea{min-height:110px;resize:vertical}
-  .note{font-size:13px;color:var(--muted);margin-top:4px}
-  .form-ok{display:none;margin-top:14px;color:var(--ok);font-size:14.5px}
+  .contact-box .lead{font-size:15px;color:var(--text);line-height:1.7}
+  .talk-list{display:grid;gap:14px;margin:20px 0}
+  .talk-item{display:flex;gap:12px;align-items:flex-start}
+  .talk-item .no{flex:none;width:26px;height:26px;border-radius:8px;background:rgba(14,165,233,.12);color:var(--accent);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+  .talk-item .tx b{display:block;font-size:14.5px;margin-bottom:2px}
+  .talk-item .tx span{font-size:13.5px;color:var(--muted);line-height:1.6}
+  .talk-example{margin-top:18px;background:var(--bg);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--muted);line-height:1.7}
+  .talk-example b{color:var(--text)}
+  .note{font-size:13px;color:var(--muted);margin-top:16px;line-height:1.6}
 
   footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px;text-align:center}
 </style>
@@ -243,22 +242,20 @@
     <div class="head">
       <div class="overline">聊聊你的需求</div>
       <h2>想做什么，跟我说一声</h2>
-      <p class="sub">留下你的称呼和大概想做的东西，我会在对应平台站内私信回复。尽量说清楚是做什么用、现在卡在哪。</p>
+      <p class="sub">把想做的事、现在卡在哪说清楚，到对应平台站内私信找我就行；下面列了沟通时可以顺带提到的几点。</p>
     </div>
     <div class="contact-box">
-      <form id="contactForm">
-        <div>
-          <label for="name">怎么称呼你</label>
-          <input id="name" type="text" placeholder="称呼 / 团队名称">
-        </div>
-        <div>
-          <label for="need">想做什么 / 遇到的问题</label>
-          <textarea id="need" placeholder="例如：店里想做个官网；客户预约总靠打电话；客户和货物想记到一个后台里……"></textarea>
-        </div>
-        <button class="btn btn-primary" type="submit">提交需求（演示）</button>
-        <p class="note">说明：本页面为本地演示，表单暂不发送真实数据；正式沟通请在对应平台站内私信联系，不在此页留站外联系方式。</p>
-        <p class="form-ok" id="formOk">已记录需求内容（演示）。正式沟通请在对应平台站内私信发送。</p>
-      </form>
+      <p class="lead">本站是演示作品集，<strong>不在线填写、也不接收表单提交</strong>；正式合作请在你看到我的平台（抖音 / 外包平台）站内私信联系，我会逐条回复。</p>
+      <div class="talk-list">
+        <div class="talk-item"><div class="no">1</div><div class="tx"><b>想做哪一类</b><span>官网 / 落地页、预约或点单小程序、管理后台，或是小工具、脚本插件。</span></div></div>
+        <div class="talk-item"><div class="no">2</div><div class="tx"><b>现在卡在哪</b><span>例如：没有网上门面、预约总靠打电话、客户和货物散在表格里对不上。</span></div></div>
+        <div class="talk-item"><div class="no">3</div><div class="tx"><b>大概预期（可选）</b><span>希望什么时候用上、预算范围；不确定也没关系，聊过再评估。</span></div></div>
+      </div>
+      <div class="talk-example">
+        <b>可以直接这样发我：</b><br>
+        “想给店里做个官网，能放服务和联系方式；另外客户预约想在手机上选时间，不用再打电话确认。希望下个月能用上，预算大概几千块。”
+      </div>
+      <p class="note">说明：本页为演示作品，不收集、不保存任何填写信息；请通过对应平台站内私信沟通，本页不留微信、QQ 等站外联系方式。</p>
     </div>
   </div>
 </section>
@@ -268,10 +265,7 @@
 </footer>
 
 <script>
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    document.getElementById('formOk').style.display = 'block';
-  });
+  // 本站为演示作品集，联系区块为静态指引，无表单提交逻辑。
 </script>
 </body>
 </html>
