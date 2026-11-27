@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-canvas-width="1280" data-canvas-height="1400">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理后台 Demo · 码侬霄捷作品集</title>
+<meta name="description" content="演示作品：通用业务管理后台，数据列表、搜索筛选、分页与新增表单，前端 mock 数据，可对接真实后端。">
+<style>
+  @font-face{
+    font-family:"Source Han Sans SC VF";
+    src:url("https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao/infinite-canvas/fonts/v1/source-han-sans-sc-vf/source-han-sans-sc-vf.otf") format("opentype");
+    font-weight:250 900;
+    font-style:normal;
+    font-display:swap;
+  }
+  :root{
+    --bg:#f5f8fc; --card:#ffffff; --line:#e3ecf3; --text:#16233a; --muted:#5f7186;
+    --accent:#0ea5e9; --accent-dark:#2563eb; --accent-soft:#e0f2fe; --sidebar:#16233a; --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Source Han Sans SC VF",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  .layout{display:flex;min-height:100vh}
+
+  /* 侧边栏 */
+  .side{width:220px;background:var(--sidebar);color:#cbd5e1;flex-shrink:0}
+  .side .logo{padding:20px 18px;font-weight:700;color:#fff;font-size:17px}
+  .side .logo span{color:var(--accent)}
+  .menu{padding:8px 12px;display:grid;gap:4px}
+  .menu .item{padding:11px 12px;border-radius:10px;font-size:14px;cursor:pointer}
+  .menu .item.active{background:rgba(14,165,233,.22);color:#fff}
+  .menu .item:not(.active):hover{background:rgba(255,255,255,.06)}
+  @media(max-width:760px){.side{display:none}}
+
+  .main{flex:1;min-width:0;padding:22px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+  .topbar h1{font-size:20px}
+  .avatar{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent-dark);display:flex;align-items:center;justify-content:center;font-weight:700}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  .stat b{font-size:24px;display:block}
+  .stat span{font-size:13px;color:var(--muted)}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:center}
+  .toolbar input,.toolbar select{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;background:#fff}
+  .toolbar input{flex:1;min-width:160px}
+  .btn{padding:10px 16px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-size:14px;font-weight:600;cursor:pointer}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--text)}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:13px}
+  .tag{font-size:12px;border-radius:6px;padding:2px 10px}
+  .tag.todo{background:#fef3c7;color:#b45309}
+  .tag.doing{background:var(--accent-soft);color:var(--accent-dark)}
+  .tag.done{background:#e2e8f0;color:#475569}
+  .ops{color:var(--accent-dark);cursor:pointer;margin-right:10px}
+
+  .pager{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:13px;color:var(--muted)}
+  .pager button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+  .pager button:disabled{opacity:.4}
+
+  /* 弹窗 */
+  .mask{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);align-items:center;justify-content:center;padding:20px;z-index:30}
+  .mask.show{display:flex}
+  .modal{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:420px}
+  .modal h3{margin-bottom:16px}
+  .modal form{display:grid;gap:12px}
+  label{font-size:13px;color:var(--muted)}
+  input,select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:15px;font-family:inherit}
+  .modal .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+  .empty{text-align:center;color:var(--muted);padding:30px 0}
+  .demo-tag{position:fixed;right:16px;bottom:16px;background:var(--text);color:#fff;font-size:11px;border-radius:6px;padding:5px 10px;opacity:.85}
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <aside class="side">
+    <div class="logo">码侬<span>霄捷</span> · 后台</div>
+    <div class="menu">
+      <div class="item active">📊 仪表盘</div>
+      <div class="item">👥 客户管理</div>
+      <div class="item">📦 项目记录</div>
+      <div class="item">🧾 订单跟进</div>
+      <div class="item">⚙️ 设置</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <h1>客户 / 项目管理</h1>
+      <div class="avatar">霄</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="stTotal">0</b><span>总记录</span></div>
+      <div class="stat"><b id="stTodo">0</b><span>待跟进</span></div>
+      <div class="stat"><b id="stDoing">0</b><span>进行中</span></div>
+      <div class="stat"><b id="stDone">0</b><span>已完成</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="toolbar">
+        <input id="q" type="text" placeholder="搜索姓名 / 项目…">
+        <select id="filter">
+          <option value="">全部状态</option>
+          <option value="todo">待跟进</option>
+          <option value="doing">进行中</option>
+          <option value="done">已完成</option>
+        </select>
+        <button class="btn" id="addBtn">+ 新增记录</button>
+      </div>
+
+      <table>
+        <thead><tr><th>姓名</th><th>联系方式</th><th>项目需求</th><th>状态</th><th>登记日期</th><th>操作</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="pager">
+        <span id="pageInfo"></span>
+        <div><button id="prev">上一页</button> <button id="next">下一页</button></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- 新增弹窗 -->
+<div class="mask" id="mask">
+  <div class="modal">
+    <h3>新增记录</h3>
+    <form id="form">
+      <div><label>姓名</label><input id="mName" type="text" placeholder="客户称呼"></div>
+      <div><label>联系方式</label><input id="mContact" type="text" placeholder="手机 / 微信（演示 mock）"></div>
+      <div><label>项目需求</label><input id="mNeed" type="text" placeholder="如：门店官网 / 预约小程序"></div>
+      <div><label>状态</label>
+        <select id="mStatus"><option value="todo">待跟进</option><option value="doing">进行中</option><option value="done">已完成</option></select>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn ghost" id="cancel">取消</button>
+        <button type="submit" class="btn">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="demo-tag">Demo</div>
+
+<script>
+  let rows = [
+    { name:'王老板', contact:'138****2041', need:'门店品牌官网', status:'doing', date:'2026-11-20' },
+    { name:'李女士', contact:'139****7732', need:'预约小程序', status:'todo', date:'2026-11-22' },
+    { name:'张经理', contact:'137****5560', need:'客户登记后台', status:'done', date:'2026-11-15' },
+    { name:'陈同学', contact:'135****9018', need:'AI 问答小工具', status:'todo', date:'2026-11-24' },
+    { name:'赵总', contact:'186****3327', need:'商品库存管理', status:'doing', date:'2026-11-18' },
+    { name:'周女士', contact:'150****6649', need:'活动落地页', status:'done', date:'2026-11-10' },
+    { name:'吴先生', contact:'158****1123', need:'数据报表脚本', status:'todo', date:'2026-11-25' },
+    { name:'郑女士', contact:'133****8874', need:'内部审批后台', status:'doing', date:'2026-11-21' }
+  ];
+  const statusMap = { todo:['待跟进','todo'], doing:['进行中','doing'], done:['已完成','done'] };
+  let page = 1, pageSize = 5;
+
+  const $ = id => document.getElementById(id);
+  function filtered(){
+    const q = $('q').value.trim().toLowerCase();
+    const f = $('filter').value;
+    return rows.filter(r =>
+      (!f || r.status===f) &&
+      (!q || r.name.toLowerCase().includes(q) || r.need.toLowerCase().includes(q))
+    );
+  }
+  function render(){
+    const data = filtered();
+    const totalPages = Math.max(1, Math.ceil(data.length/pageSize));
+    if(page>totalPages) page=totalPages;
+    const start=(page-1)*pageSize, slice=data.slice(start,start+pageSize);
+    $('tbody').innerHTML = slice.length ? slice.map((r,i)=>{
+      const [label,cls]=statusMap[r.status];
+      return `<tr>
+        <td>${r.name}</td><td>${r.contact}</td><td>${r.need}</td>
+        <td><span class="tag ${cls}">${label}</span></td><td>${r.date}</td>
+        <td><span class="ops" data-i="${start+i}">查看</span><span class="ops" data-del="${start+i}">删除</span></td>
+      </tr>`;
+    }).join('') : '<tr><td colspan="6"><div class="empty">暂无匹配记录</div></td></tr>';
+    $('pageInfo').textContent = `第 ${page} / ${totalPages} 页 · 共 ${data.length} 条`;
+    $('prev').disabled = page<=1; $('next').disabled = page>=totalPages;
+    // 统计
+    $('stTotal').textContent = rows.length;
+    $('stTodo').textContent = rows.filter(r=>r.status==='todo').length;
+    $('stDoing').textContent = rows.filter(r=>r.status==='doing').length;
+    $('stDone').textContent = rows.filter(r=>r.status==='done').length;
+
+    document.querySelectorAll('[data-del]').forEach(el=>{
+      el.onclick=()=>{ rows.splice(+el.dataset.del,1); render(); };
+    });
+  }
+
+  $('q').oninput=()=>{page=1;render();};
+  $('filter').onchange=()=>{page=1;render();};
+  $('prev').onclick=()=>{page--;render();};
+  $('next').onclick=()=>{page++;render();};
+  $('addBtn').onclick=()=>{ $('mask').classList.add('show'); };
+  $('cancel').onclick=()=>{ $('mask').classList.remove('show'); };
+  $('form').onsubmit=function(e){
+    e.preventDefault();
+    const name=$('mName').value.trim(); if(!name){alert('请填写姓名');return;}
+    rows.unshift({ name, contact:$('mContact').value.trim()||'—', need:$('mNeed').value.trim()||'未填写', status:$('mStatus').value, date:new Date().toISOString().slice(0,10) });
+    this.reset(); $('mask').classList.remove('show'); page=1; render();
+  };
+
+  render();
+</script>
+</body>
+</html>

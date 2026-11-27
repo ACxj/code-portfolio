@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-canvas-width="1280" data-canvas-height="2400">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>码侬霄捷 · 网站 / 小程序 / 管理系统定制开发</title>
+<meta name="description" content="十余年开发经验，帮商家和小团队做网站、小程序、管理后台，从做到上线一人搞定，不用你懂技术。">
+<style>
+  @font-face{
+    font-family:"Source Han Sans SC VF";
+    src:url("https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao/infinite-canvas/fonts/v1/source-han-sans-sc-vf/source-han-sans-sc-vf.otf") format("opentype");
+    font-weight:250 900;
+    font-style:normal;
+    font-display:swap;
+  }
+  :root{
+    --bg:#f5f8fc; --bg-soft:#eef4fb; --card:#ffffff; --line:#e3ecf3;
+    --text:#16233a; --muted:#5f7186; --accent:#0ea5e9; --accent-2:#2563eb; --warm:#f97316; --ok:#10b981;
+    --radius:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Source Han Sans SC VF",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent-2);text-decoration:none}
+
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;
+    background:
+      radial-gradient(720px 420px at 50% -8%, rgba(14,165,233,.14), transparent 60%),
+      radial-gradient(560px 360px at 90% 12%, rgba(249,115,22,.10), transparent 60%),
+      var(--bg);
+  }
+
+  /* ===== 导航 ===== */
+  header{position:sticky;top:0;z-index:20;background:rgba(245,248,252,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{font-weight:800;font-size:18px;letter-spacing:.5px}
+  .brand span{color:var(--accent)}
+  .nav-links{display:flex;gap:26px;font-size:15px}
+  .nav-links a{color:var(--muted);transition:color .15s}
+  .nav-links a:hover{color:var(--text)}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  /* ===== Hero ===== */
+  .hero{padding:92px 0 64px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--accent-2);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 16px;margin-bottom:28px;box-shadow:0 4px 14px rgba(37,99,235,.08)}
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+  .hero h1{font-size:clamp(32px,5.6vw,50px);line-height:1.25;font-weight:900;letter-spacing:-.5px;margin-bottom:22px}
+  .hero h1 em{font-style:normal;color:var(--accent-2)}
+  .hero h1 .warm{color:var(--warm)}
+  .hero p{color:var(--muted);font-size:17px;max-width:660px;margin:0 auto 32px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-block;padding:13px 24px;border-radius:12px;font-size:15px;font-weight:600;transition:transform .15s,box-shadow .15s}
+  .btn-primary{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 24px rgba(37,99,235,.25)}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);background:#fff}
+  .btn:hover{transform:translateY(-2px)}
+  .trust{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:38px;color:var(--muted);font-size:13.5px}
+  .trust span{display:inline-flex;gap:7px;align-items:center}
+
+  section{padding:60px 0}
+  .head{text-align:center;max-width:620px;margin:0 auto 38px}
+  .head .overline{font-size:13px;color:var(--warm);font-weight:700;letter-spacing:1px;margin-bottom:10px}
+  h2{font-size:clamp(24px,3.4vw,30px);font-weight:800;margin-bottom:10px;letter-spacing:-.3px}
+  .sub{color:var(--muted);font-size:15.5px}
+
+  /* ===== 卡片网格 ===== */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:0 6px 20px rgba(22,35,58,.06);transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(22,35,58,.12)}
+  .card .ico{width:48px;height:48px;border-radius:14px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;font-size:23px;margin-bottom:16px}
+  .card h3{font-size:17px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:14.5px}
+  .bonus{margin-top:22px;background:#fff;border:1px dashed var(--line);border-radius:var(--radius);padding:20px 24px;color:var(--muted);font-size:14.5px}
+  .bonus b{color:var(--text)}
+
+  /* ===== 案例浏览器 mock ===== */
+  .browser{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;margin-bottom:18px}
+  .browser .bar{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg-soft)}
+  .browser .bar i{width:9px;height:9px;border-radius:50%;background:#cbd8e6}
+  .browser .url{flex:1;margin-left:8px;font-size:12px;color:var(--muted);background:#fff;border-radius:7px;padding:4px 10px}
+  .shot{height:150px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13.5px;background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(249,115,22,.06))}
+  .case .meta{font-size:13px;color:var(--accent-2);margin-bottom:8px}
+  .case h3{font-size:16.5px;margin-bottom:6px}
+  .case p{color:var(--muted);font-size:14px}
+  .case-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:14px;font-weight:600;color:var(--accent-2)}
+  .status{display:inline-block;margin-top:14px;font-size:12px;color:var(--ok);border:1px solid rgba(16,185,129,.25);background:#ecfdf5;border-radius:7px;padding:3px 11px;margin-right:8px}
+
+  /* ===== 技能 ===== */
+  .skills{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 16px;font-size:14px;color:var(--text);box-shadow:0 3px 10px rgba(22,35,58,.05)}
+  .chip small{color:var(--muted);margin-left:6px}
+
+  /* ===== 联系 ===== */
+  .contact-box{max-width:600px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:0 10px 30px rgba(22,35,58,.08)}
+  .contact form{display:grid;gap:16px}
+  .contact label{font-size:14px;color:var(--muted)}
+  .contact input,.contact textarea{
+    width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;
+    padding:13px 15px;color:var(--text);font-size:15px;font-family:inherit;transition:border-color .15s;
+  }
+  .contact input:focus,.contact textarea:focus{outline:none;border-color:var(--accent)}
+  .contact textarea{min-height:110px;resize:vertical}
+  .note{font-size:13px;color:var(--muted);margin-top:4px}
+  .form-ok{display:none;margin-top:14px;color:var(--ok);font-size:14.5px}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">码侬<span>·</span>霄捷</div>
+      <div class="nav-links">
+        <a href="#services">能做什么</a>
+        <a href="#cases">样例</a>
+        <a href="#skills">我的能力</a>
+        <a href="#contact">聊聊需求</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<div class="wrap hero">
+  <span class="pill"><span class="dot"></span>十余年开发经验 · 独立接单</span>
+  <h1>想做网站、小程序，还是管理后台？<br><em>我帮你从头做到上线</em></h1>
+  <p>不管你是开店、做工作室，还是有个小想法，都能帮你做成客户在手机、电脑上能用的成品。你不用懂技术，把想做什么说清楚就行，剩下的交给我。</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="#cases">先看看做过的样例</a>
+    <a class="btn btn-ghost" href="#contact">聊聊我的需求</a>
+  </div>
+  <div class="trust">
+    <span>✓ 前后台一人搞定</span>
+    <span>✓ 包部署上线</span>
+    <span>✓ 需求先讲清楚再开工</span>
+  </div>
+</div>
+
+<!-- ===== 服务 ===== -->
+<section id="services">
+  <div class="wrap">
+    <div class="head">
+      <div class="overline">我能帮你做这些</div>
+      <h2>常见的三类需求，都能接</h2>
+      <p class="sub">需求明确、做得快、交付清楚，不用你来回折腾技术细节。</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">🌐</div>
+        <h3>做个像样的官网</h3>
+        <p>给你的店、工作室做个网上门面，手机电脑都能看。客户点开就知道你是做什么的、怎么联系你，先信任再上门。</p>
+      </div>
+      <div class="card">
+        <div class="ico">📱</div>
+        <h3>手机上能用的小程序</h3>
+        <p>预约、点餐、展示这类小程序，客户在家就能选服务、约时间，不用反复打电话确认，手机上点开就用。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🗂️</div>
+        <h3>省心的管理后台</h3>
+        <p>把记在本子上、散在表格里的客户和货物搬到后台，录入、查找、统计都在一个页面搞定，不用再来回翻表。</p>
+      </div>
+    </div>
+    <div class="bonus">
+      <b>其他也能做：</b>AI 小工具、自动重复干活的脚本、浏览器插件、系统上线和出问题排查，有需要都可以聊。
+    </div>
+  </div>
+</section>
+
+<!-- ===== 案例 ===== -->
+<section id="cases">
+  <div class="wrap">
+    <div class="head">
+      <div class="overline">先看样例</div>
+      <h2>这些是我做的演示样例</h2>
+      <p class="sub">下面是提前做好的演示作品，方便你直观看到做出来长什么样；真实客户案例会在交付后脱敏补充。</p>
+    </div>
+    <div class="grid">
+      <div class="card case">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><div class="url">demo-website.html</div></div>
+          <div class="shot">官网样例 · 预览占位</div>
+        </div>
+        <div class="meta">企业官网 / 展示页</div>
+        <h3>品牌官网样例</h3>
+        <p>首页介绍、服务展示、联系方式齐全，手机上自动适配，打开就能看。</p>
+        <span class="status">可在线预览</span><a class="case-link" href="demo-website.html">查看样例 →</a>
+      </div>
+      <div class="card case">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><div class="url">demo-booking.html</div></div>
+          <div class="shot">预约小程序 · 预览占位</div>
+        </div>
+        <div class="meta">小程序 / 手机应用</div>
+        <h3>服务预约样例</h3>
+        <p>客户选服务、挑时间、填信息就能预约，手机上用起来跟小程序一样顺手。</p>
+        <span class="status">可在线预览</span><a class="case-link" href="demo-booking.html">查看样例 →</a>
+      </div>
+      <div class="card case">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><div class="url">demo-admin.html</div></div>
+          <div class="shot">管理后台 · 预览占位</div>
+        </div>
+        <div class="meta">管理系统 / 后台工具</div>
+        <h3>管理后台样例</h3>
+        <p>客户和项目列在一起，能搜、能筛、能新增记录，数据一目了然。</p>
+        <span class="status">可在线预览</span><a class="case-link" href="demo-admin.html">查看样例 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 技能 ===== -->
+<section id="skills">
+  <div class="wrap">
+    <div class="head">
+      <div class="overline">为什么能放心交给我</div>
+      <h2>从做到上线，一个人接上</h2>
+      <p class="sub">不用你在设计、开发、部署之间来回找人，我从头到尾跟到底，出了问题有人管。</p>
+    </div>
+    <div class="skills">
+      <span class="chip">网站前后台都能做<small>展示页 + 后台逻辑</small></span>
+      <span class="chip">手机端页面 / 小程序<small>手机上好用好看</small></span>
+      <span class="chip">部署上线与维护<small>搭环境、发布、排查问题</small></span>
+      <span class="chip">自动化小工具<small>省重复人工的脚本和插件</small></span>
+      <span class="chip">链上合约<small>小众方向，有需要再聊</small></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 联系 ===== -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="head">
+      <div class="overline">聊聊你的需求</div>
+      <h2>想做什么，跟我说一声</h2>
+      <p class="sub">留下你的称呼和大概想做的东西，我会在对应平台站内私信回复。尽量说清楚是做什么用、现在卡在哪。</p>
+    </div>
+    <div class="contact-box">
+      <form id="contactForm">
+        <div>
+          <label for="name">怎么称呼你</label>
+          <input id="name" type="text" placeholder="称呼 / 团队名称">
+        </div>
+        <div>
+          <label for="need">想做什么 / 遇到的问题</label>
+          <textarea id="need" placeholder="例如：店里想做个官网；客户预约总靠打电话；客户和货物想记到一个后台里……"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">提交需求（演示）</button>
+        <p class="note">说明：本页面为本地演示，表单暂不发送真实数据；正式沟通请在对应平台站内私信联系，不在此页留站外联系方式。</p>
+        <p class="form-ok" id="formOk">已记录需求内容（演示）。正式沟通请在对应平台站内私信发送。</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 码侬霄捷 · 网站 / 小程序 / 管理系统定制 · 演示作品仅供参考</div>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('formOk').style.display = 'block';
+  });
+</script>
+</body>
+</html>

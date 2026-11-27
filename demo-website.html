@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-canvas-width="1280" data-canvas-height="2200">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>示例工坊 · 品牌官网 Demo</title>
+<meta name="description" content="演示作品：本地门店品牌官网模板，响应式适配手机，含服务展示、案例与联系表单。">
+<style>
+  @font-face{
+    font-family:"Source Han Sans SC VF";
+    src:url("https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao/infinite-canvas/fonts/v1/source-han-sans-sc-vf/source-han-sans-sc-vf.otf") format("opentype");
+    font-weight:250 900;
+    font-style:normal;
+    font-display:swap;
+  }
+  :root{
+    --bg:#ffffff; --soft:#eef4fb; --line:#e3ecf3; --text:#16233a; --muted:#5f7186;
+    --accent:#0ea5e9; --accent-dark:#2563eb; --warm:#f97316; --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Source Han Sans SC VF",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--text);line-height:1.7;background:var(--bg)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:var(--accent-dark);text-decoration:none}
+
+  header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;font-size:18px}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:22px;font-size:15px}
+  .nav-links a{color:var(--muted)}
+  .nav-links a:hover{color:var(--text)}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  .hero{padding:76px 0 60px;background:linear-gradient(180deg,var(--soft),#fff)}
+  .hero .badge{display:inline-block;font-size:13px;color:var(--accent-dark);background:#e0f2fe;border-radius:999px;padding:4px 14px;margin-bottom:18px}
+  .hero h1{font-size:34px;line-height:1.35;margin-bottom:16px}
+  .hero p{color:var(--muted);font-size:17px;max-width:600px;margin-bottom:28px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 22px;border-radius:10px;font-size:15px;font-weight:600}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-ghost{border:1px solid var(--line);color:var(--text)}
+
+  section{padding:56px 0}
+  h2{font-size:25px;margin-bottom:8px}
+  .sub{color:var(--muted);margin-bottom:30px}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .card .ico{font-size:26px;margin-bottom:12px}
+  .card h3{font-size:17px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:14.5px}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:center}
+  @media(max-width:640px){.stats{grid-template-columns:1fr}}
+  .stat b{display:block;font-size:30px;color:var(--accent-dark)}
+  .stat span{color:var(--muted);font-size:14px}
+
+  .shot{height:160px;border-radius:10px;background:var(--soft);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;margin-bottom:14px}
+
+  .about{background:var(--soft)}
+  .about p{color:var(--muted);max-width:720px}
+
+  form{display:grid;gap:14px;max-width:560px}
+  label{font-size:14px;color:var(--muted)}
+  input,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit;background:#fff}
+  textarea{min-height:110px;resize:vertical}
+  .form-ok{display:none;color:var(--accent-dark);font-size:14.5px;margin-top:6px}
+  .demo-tag{position:fixed;right:16px;bottom:16px;background:var(--text);color:#fff;font-size:12px;border-radius:8px;padding:6px 12px;opacity:.85}
+
+  footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">示例<span>工坊</span></div>
+      <div class="nav-links">
+        <a href="#home">首页</a>
+        <a href="#services">服务</a>
+        <a href="#cases">案例</a>
+        <a href="#about">关于</a>
+        <a href="#contact">联系</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero" id="home">
+  <span class="badge">品牌官网模板 · 演示作品 Demo</span>
+  <h1>用一个专业的官网，让客户先信任再上门</h1>
+  <p>这里替换成你的业务一句话介绍：我们做什么、服务谁、有什么优势。页面文案、配色与图片均可按品牌替换。</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="#contact">预约咨询</a>
+    <a class="btn btn-ghost" href="#services">查看服务</a>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <h2>我们的服务</h2>
+    <p class="sub">以下为模板占位内容，正式项目按真实业务替换。</p>
+    <div class="grid">
+      <div class="card"><div class="ico">🛠️</div><h3>服务一</h3><p>一句话说明这项服务做什么、适合什么客户。</p></div>
+      <div class="card"><div class="ico">📦</div><h3>服务二</h3><p>一句话说明这项服务的内容与交付形式。</p></div>
+      <div class="card"><div class="ico">🤝</div><h3>服务三</h3><p>一句话说明这项服务能帮客户解决的问题。</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap stats">
+    <div class="stat"><b>10+</b><span>年行业经验（占位）</span></div>
+    <div class="stat"><b>200+</b><span>服务客户（占位）</span></div>
+    <div class="stat"><b>98%</b><span>客户满意（占位）</span></div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="wrap">
+    <h2>案例 / 环境展示</h2>
+    <p class="sub">图片位替换为真实门店环境、作品或客户案例。</p>
+    <div class="grid">
+      <div class="card"><div class="shot">案例图片占位 1</div><h3>案例标题一</h3><p>项目简述与成果，脱敏后展示。</p></div>
+      <div class="card"><div class="shot">案例图片占位 2</div><h3>案例标题二</h3><p>项目简述与成果，脱敏后展示。</p></div>
+      <div class="card"><div class="shot">案例图片占位 3</div><h3>案例标题三</h3><p>项目简述与成果，脱敏后展示。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <h2>关于我们</h2>
+    <p>这里替换成品牌背景、团队介绍、经营理念与服务承诺。官网的作用是把线下实力搬到线上，让第一次接触的客户快速判断「这家靠不靠谱」。</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>联系我们</h2>
+    <p class="sub">表单为前端演示，正式上线后对接后端或留言服务。</p>
+    <form id="f">
+      <div><label>称呼</label><input type="text" placeholder="你的称呼"></div>
+      <div><label>联系方式 / 需求</label><textarea placeholder="想咨询的服务或问题"></textarea></div>
+      <button class="btn btn-primary" type="submit">提交（演示）</button>
+      <p class="form-ok" id="ok">已提交（演示），正式表单会对接后端接收留言。</p>
+    </form>
+  </div>
+</section>
+
+<footer><div class="wrap">© 2026 示例工坊 · 本页面为演示模板，不代表真实经营主体</div></footer>
+<div class="demo-tag">Demo</div>
+
+<script>
+  document.getElementById('f').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('ok').style.display='block';
+  });
+</script>
+</body>
+</html>
